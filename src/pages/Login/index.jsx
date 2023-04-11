@@ -68,6 +68,7 @@ export default function Login() {
                     required: true,
                     message: '请输入您的密码!',
                   },
+                  // 自定义验证
                   (rule, value) =>{ 
                     console.log(rule,value);
                   }
