@@ -1,7 +1,7 @@
 
 import { Navigate } from 'react-router-dom'
-import Login from '../pages/Login'
-import Admin from '../pages/Admin'
+import Login from '../containers/Login'
+import Admin from '../containers/Admin'
 export default [
     {
         path:'/login',

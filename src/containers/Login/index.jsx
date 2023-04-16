@@ -1,16 +1,42 @@
 import React from 'react'
+import {useNavigate,Navigate} from 'react-router-dom'
+import { connect } from 'react-redux';
+import {createSaveUserInfoAction} from '../../redux/action_creators/login_action'
+import {reqLogin} from '../../api/index'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Form, Input, Button, } from 'antd';
+import { Form, Input, Button, message} from 'antd';
 import './index.scss'
 import logo from './imgs/wer.png'
 
 
-export default function Login() {
-  const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+ function Login(props) {
+  const navigate=useNavigate()
+  const {isLogin} =props
+  const onFinish = async(values) => {
     // 1、获取用户的输入
+    console.log('Received values of form: ',values);
     // 2、发起网络请求axios
+    const result=await reqLogin(values)
+    console.log(result,123)
+    const {code,msg,data} = result
+    if(code===0){
+      // 1.将服务器返回的user信息，还有token交由redux管理
+      props.saveUserInfo(data)
+      // 2.跳转到admin页面
+      navigate('/admin',{
+        replace:true
+      })
+      message.success('登录成功！')
+
+    }else{
+      // 弹出一个提示框
+      message.warning(msg)
+    }
   };
+  if(isLogin){
+    return <Navigate to={'/admin'}/>
+  }
+
   return (
     <div className='login'>
       <div className='bg'>
@@ -91,3 +117,10 @@ export default function Login() {
     </div>
   )
 }
+
+export default connect (
+  state => ({isLogin:state.userInfo.isLogin}),
+  {
+    saveUserInfo:createSaveUserInfoAction
+  }
+)(Login)
