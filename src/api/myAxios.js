@@ -2,9 +2,10 @@ import axios from "axios";
 import { message } from 'antd'
 import NProgress from "nprogress";
 import sotre from '../redux/store'
-// import { Navigate } from 'react-router-dom';
+import {createDeleteUserInfoAction} from '../redux/action_creators/login_action'
 
 import 'nprogress/nprogress.css'
+import store from "../redux/store";
 
 
 // 为axios实例添加属性
@@ -53,12 +54,14 @@ instance.interceptors.response.use((response) => {
         message.error('请求超时！', 2)
     } else {
         // 根据返回的状态码，为401，表示未授权，则跳转至登录页
-        // if (err.message.includes('401')) {
-        //     
-        // }
-    }
-    // message.error(err.message, 2)
+        if (err.response.status === 401) {
+            message.error('身份校验失败，请重新登录',1)
+            store.dispatch(createDeleteUserInfoAction())
+        }else{
+            message.error(err.message,1)
+        }
 
+    }
     // 如果出错了，就返回一个暂停的promise实例,不需要继续向下传了
     return new Promise(() => {})
 

@@ -1,13 +1,12 @@
 import {useEffect} from 'react'
 import {useNavigate } from 'react-router-dom';
-import {reqCategoryList} from '../../api/index'
+import {Outlet} from 'react-router-dom'
+// import {reqCategoryList} from '../../api/index'
 import {createDeleteUserInfoAction} from '../../redux/action_creators/login_action'
 import {connect} from 'react-redux'
-import jsCookie from 'js-cookie'
-import { Layout } from 'antd';
-
 import Header from './Header';
 import './index.scss'
+import { Layout } from 'antd';
 
 
 function Admin(props) {
@@ -19,11 +18,6 @@ function Admin(props) {
     backgroundColor: '#3ba0e9',
   };
   const navigate=useNavigate()
-  // 退出登录方法
-  function logout(){
-    props.deleteUserInfo()
-  }
-
 
   // async function demo(){
   //   const result= await reqCategoryList()
@@ -36,7 +30,7 @@ function Admin(props) {
     if(!isLogin) navigate('/login',{replace:true})
    
   })
-  const {user,isLogin}=props.userInfo
+  const {isLogin}=props.userInfo
     return (
         <Layout className='admin'>
           <Sider className='sider' style={siderStyle}>Sider</Sider>
@@ -44,10 +38,10 @@ function Admin(props) {
             <Header />
             <Content  className='content'>
               <div className='content_view'>
-
+              <Outlet />
               </div>
             </Content>
-            <Footer className='footer'>推荐使用谷歌浏览器，获取最佳用户体验</Footer>
+            <Footer className='footer'>推荐使用谷歌浏览器，获取最佳用户体验 </Footer>
           </Layout>
         </Layout>
     )

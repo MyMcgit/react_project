@@ -10,7 +10,7 @@ import User from '../containers/User'
 import Bar from '../containers/Bar'
 import Line from '../containers/Line'
 import Pie from '../containers/Pie'
-export default [
+export  const arr= [
     {
         path:'/login',
         element:<Login/>
@@ -61,8 +61,6 @@ export default [
                     }
                 ]
             }
-
-        
         ]
     },
     {

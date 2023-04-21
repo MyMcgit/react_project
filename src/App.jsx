@@ -1,7 +1,7 @@
 import { useRoutes} from 'react-router-dom';
-import routeTable from './router'
+import {arr} from './router'
 export default  function App() {
-    const element=useRoutes(routeTable)
+    const element=useRoutes(arr)
     return ( 
         <div className = "app" >
                 {element}
