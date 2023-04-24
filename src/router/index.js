@@ -65,6 +65,6 @@ export  const arr= [
     },
     {
         path:'/',
-        element: <Navigate to='/admin'/>
+        element: <Navigate to='/admin/home'/>
     }
 ]

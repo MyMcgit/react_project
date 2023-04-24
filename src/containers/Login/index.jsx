@@ -6,7 +6,7 @@ import {reqLogin} from '../../api/index'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Button, message} from 'antd';
 import './index.scss'
-import logo from './imgs/wer.png'
+import logo from '../../static/imgs/wer.png'
 
 
  function Login(props) {
@@ -23,7 +23,7 @@ import logo from './imgs/wer.png'
       // 1.将服务器返回的user信息，还有token交由redux管理
       props.saveUserInfo(data)
       // 2.跳转到admin页面
-      navigate('/admin',{
+      navigate('/admin/home',{
         replace:true
       })
       message.success('登录成功！')
@@ -34,7 +34,7 @@ import logo from './imgs/wer.png'
     }
   };
   if(isLogin){
-    return <Navigate to={'/admin'}/>
+    return <Navigate to={'/admin/home'}/>
   }
 
   return (
@@ -95,9 +95,9 @@ import logo from './imgs/wer.png'
                     message: '请输入您的密码!',
                   },
                   // 自定义验证
-                  (rule, value) =>{ 
-                    console.log(rule,value);
-                  }
+                  // (rule, value) =>{ 
+                  //   console.log(rule,value);
+                  // }
                 ]}
               >
                 <Input

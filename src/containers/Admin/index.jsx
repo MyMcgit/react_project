@@ -1,10 +1,10 @@
 import {useEffect} from 'react'
 import {useNavigate } from 'react-router-dom';
 import {Outlet} from 'react-router-dom'
-// import {reqCategoryList} from '../../api/index'
 import {createDeleteUserInfoAction} from '../../redux/action_creators/login_action'
 import {connect} from 'react-redux'
 import Header from './Header';
+import Sidebar from './Sidebar';
 import './index.scss'
 import { Layout } from 'antd';
 
@@ -12,10 +12,7 @@ import { Layout } from 'antd';
 function Admin(props) {
   const {Footer, Sider, Content } = Layout;
   const siderStyle = {
-    textAlign: 'center',
-    lineHeight: '120px',
-    color: '#fff',
-    backgroundColor: '#3ba0e9',
+    // lineHeight: '120px',
   };
   const navigate=useNavigate()
 
@@ -25,7 +22,6 @@ function Admin(props) {
   // }
 
   useEffect(()=>{
-    console.log(props);
     // 判断用户是否登录，若未登录跳转Login页面
     if(!isLogin) navigate('/login',{replace:true})
    
@@ -33,7 +29,9 @@ function Admin(props) {
   const {isLogin}=props.userInfo
     return (
         <Layout className='admin'>
-          <Sider className='sider' style={siderStyle}>Sider</Sider>
+          <Sider className='sider' style={siderStyle}>
+          <Sidebar />
+          </Sider>
           <Layout >
             <Header />
             <Content  className='content'>
