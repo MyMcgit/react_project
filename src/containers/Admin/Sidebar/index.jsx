@@ -25,25 +25,31 @@ import './index.scss'
   const items = createMenu(menu)
 
 function Sidebar(props) {
-    // const [collapsed, setCollapsed] = useState(false);
-    const location = useLocation()
-    // const toggleCollapsed = () => {
-    // setCollapsed(!collapsed);
-    // };
-    const navigate=useNavigate()
+  // const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation()
+  // const toggleCollapsed = () => {
+  // setCollapsed(!collapsed);
+  // };
+  const navigate=useNavigate()
 
-    // 选中标签跳转至对应路径
-    function selectItem({ item, key, keyPath, selectedKeys, domEvent }){
-      
-      // console.log(domEvent.target.innerHTML);
-      // 保存title至redux
-      props.saveTitle(domEvent.target.innerHTML)
-        if(keyPath[1]){
-            navigate(keyPath[1]+'/'+keyPath[0])
-        }else{
-            navigate(key)
-        }
+  // 选中标签跳转至对应路径
+  function selectItem({ item, key, keyPath, selectedKeys, domEvent }){
+    // console.log(domEvent.target.innerHTML);
+    // 保存title至redux
+    props.saveTitle(domEvent.target.innerHTML)
+      if(keyPath[1]){
+          navigate(keyPath[1]+'/'+keyPath[0])
+      }else{
+          navigate(key)
+      }
+  }
+  // selectedKeys的值，根据地址决定侧边栏标签高亮
+  function fn(){
+    if(location.pathname.includes('product')){
+      return 'product'
     }
+    return location.pathname.split('/').reverse()[0]
+  }
   return (
     <div className='sidebar'>
         <header className='nav_header'>
@@ -51,7 +57,7 @@ function Sidebar(props) {
             <h1>商品管理系统</h1>
         </header>
       <Menu
-        defaultSelectedKeys={location.pathname.split('/').reverse()[0]}
+        selectedKeys={fn()}
         defaultOpenKeys={location.pathname.split('/').splice(2)}
         mode="inline"
         theme="dark"

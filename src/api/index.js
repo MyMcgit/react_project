@@ -18,5 +18,13 @@ export const reqCategoryList = () => myaxios.get(`/api1/manage/category/list`)
 export const reqweather = ()=>myaxios.get(BASE_URL_WEATHER+`/api2/v3/weather/weatherInfo?city=${CITY}&key=${WEATHER_AK}`)
 // 新增商品分类
 export const reqAddCategory = ({categoryname})=> myaxios.post(BASE_URL +'/api1/manage/category/add', {categoryname:categoryname.trim()})
-// 修改商品分类
+// 更新一个商品分类
 export const reqUpdateCategory = ({categoryid,categoryname})=> myaxios.post(BASE_URL +'/api1/manage/category/update', {categoryid,categoryname:categoryname.trim()})
+// 请求商品分页列表
+export const reqProductList = (pageNum,pageSize) => myaxios.get(`/api1/manage/product/list`,{params:{pageNum,pageSize}})
+// 请求商品更新状态
+export const reqUPdateProdStatus = (productId,status) => myaxios.post(`/api1/manage/product/updateStatus`,{productId,status})
+// 请求搜索商品
+export const reqSearchProduct = (pageNum,pageSize,searchType,keyWord) => myaxios.get(`/api1/manage/product/search`,{params:{pageNum,pageSize,[searchType]:keyWord}})
+// 根据商品id获取商品信息
+export const reqProdById = (productId) => myaxios.get(`/api1/manage/product/info`,{params:{productId}})

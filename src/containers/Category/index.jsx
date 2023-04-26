@@ -2,7 +2,7 @@ import React ,{useEffect,useState,useRef}from 'react'
 import {Card, Button,Table,Modal,Form,Input, message } from 'antd';
 import {PlusOutlined} from '@ant-design/icons'
 import {reqCategoryList,reqAddCategory,reqUpdateCategory} from '../../api/index'
-import { PAGE_SIZE } from '../../config';
+import { PAGE_SIZE,PRIMARY } from '../../config';
 
 export default function Category() {
 
@@ -43,7 +43,7 @@ export default function Category() {
       title: '操作',
       // dataIndex: 'categoryName',
       key:'categoryName',
-      render:(item)=><Button type='link' onClick={()=>{showUpdate(item)}}>修改分类</Button>,
+      render:(item)=><Button type='link' style={{color:PRIMARY}} onClick={()=>{showUpdate(item)}}>修改分类</Button>,
       width:'25%',
       align: 'center'
     },
@@ -103,16 +103,16 @@ export default function Category() {
       if(code === 0){
         message.success('更新商品分类成功',1)
         // 更新前端数据(直接操作本地数据，不需要再次发起请求获取数据，效率较高)
-        // const newarr=JSON.parse(JSON.stringify(categoryList))
-        // for(let item of newarr){
-        //   if(item.key === categoryid){
-        //     item.categoryName=categoryname
-        //   }
-        // }
-        // setCategoryList(newarr)
+        const newarr=JSON.parse(JSON.stringify(categoryList))
+        for(let item of newarr){
+          if(item.key === categoryid){
+            item.categoryName=categoryname
+          }
+        }
+        setCategoryList(newarr)
 
         // 或者发起获取数据请求(网速慢的效率较低)
-        getCategoryList()
+        // getCategoryList()
 
         setIsModalOpen(false);//隐藏弹窗
         FormRef.resetFields()//重置表单

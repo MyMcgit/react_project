@@ -5,11 +5,14 @@ import Admin from '../containers/Admin'
 import Home from '../conponent/Home'
 import Category from '../containers/Category'
 import Product from '../containers/Product'
+import Detail from '../containers/Product/Detail'
+import AddUpdate from '../containers/Product/Add_update'
 import Role from '../containers/Role'
 import User from '../containers/User'
 import Bar from '../containers/Bar'
 import Line from '../containers/Line'
 import Pie from '../containers/Pie'
+
 export  const arr= [
     {
         path:'/login',
@@ -32,7 +35,18 @@ export  const arr= [
                     },
                     {
                         path:'product',
+                        exact:true,
                         element: <Product/>,
+                        children:[
+                            {
+                                path:'detail/:id',
+                                element: <Detail/>,
+                            },
+                            {
+                                path:'addupdate',
+                                element: <AddUpdate/>,
+                            }
+                        ]
                     }
                 ]
             },
@@ -60,7 +74,11 @@ export  const arr= [
                         element: <Line/>,
                     }
                 ]
-            }
+            },
+            {
+                path:'',
+                element: <Navigate to='home'/>,
+            },
         ]
     },
     {

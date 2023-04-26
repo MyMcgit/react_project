@@ -1,19 +1,17 @@
 import {useEffect} from 'react'
-import {useNavigate } from 'react-router-dom';
+import {useNavigate,useLocation} from 'react-router-dom';
 import {Outlet} from 'react-router-dom'
 import {createDeleteUserInfoAction} from '../../redux/action_creators/login_action'
 import {connect} from 'react-redux'
 import Header from './Header';
 import Sidebar from './Sidebar';
-import './index.scss'
+import css from './index.module.scss'
 import { Layout } from 'antd';
 
 
 function Admin(props) {
   const {Footer, Sider, Content } = Layout;
-  const siderStyle = {
-    // lineHeight: '120px',
-  };
+  const path = useLocation()
   const navigate=useNavigate()
 
   // async function demo(){
@@ -22,24 +20,24 @@ function Admin(props) {
   // }
 
   useEffect(()=>{
+    // navigate('home')
     // 判断用户是否登录，若未登录跳转Login页面
     if(!isLogin) navigate('/login',{replace:true})
-   
   })
   const {isLogin}=props.userInfo
     return (
-        <Layout className='admin'>
-          <Sider className='sider' style={siderStyle}>
+        <Layout className={css.admin}>
+          <Sider className={css.sider}>
           <Sidebar />
           </Sider>
           <Layout >
             <Header />
-            <Content  className='content'>
-              <div className='content_view'>
+            <Content  className={css.content}>
+              <div className={css.content_view}>
               <Outlet />
               </div>
             </Content>
-            <Footer className='footer'>推荐使用谷歌浏览器，获取最佳用户体验 </Footer>
+            <Footer className={css.footer}>推荐使用谷歌浏览器，获取最佳用户体验 </Footer>
           </Layout>
         </Layout>
     )
