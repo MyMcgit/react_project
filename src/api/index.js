@@ -8,11 +8,9 @@ import { BASE_URL_WEATHER , CITY,WEATHER_AK } from "../config"
 
 
 // 登录请求
-export const reqLogin = (values) => {
-    return myaxios.post(BASE_URL +'/api1/login', values)
-}
+export const reqLogin = (values) => {return myaxios.post(BASE_URL +'/api1/login', values)}
 
-// 获取商品列表请求
+// 获取商品分类列表请求
 export const reqCategoryList = () => myaxios.get(`/api1/manage/category/list`)
 // 天气请求
 export const reqweather = ()=>myaxios.get(BASE_URL_WEATHER+`/api2/v3/weather/weatherInfo?city=${CITY}&key=${WEATHER_AK}`)
@@ -28,3 +26,8 @@ export const reqUPdateProdStatus = (productId,status) => myaxios.post(`/api1/man
 export const reqSearchProduct = (pageNum,pageSize,searchType,keyWord) => myaxios.get(`/api1/manage/product/search`,{params:{pageNum,pageSize,[searchType]:keyWord}})
 // 根据商品id获取商品信息
 export const reqProdById = (productId) => myaxios.get(`/api1/manage/product/info`,{params:{productId}})
+// 请求删除图片（根据图片唯一名删除）
+export const reqDeletePicture = (name) => myaxios.post(`/api1/manage/img/delete`,{name})
+// 添加商品
+export const reqAddProduct = (values) => myaxios.post(`/api1/manage/product/add`,{values})
+

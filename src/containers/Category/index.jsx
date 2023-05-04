@@ -1,18 +1,18 @@
-import React ,{useEffect,useState,useRef}from 'react'
+import React ,{useEffect,useState}from 'react'
 import {Card, Button,Table,Modal,Form,Input, message } from 'antd';
 import {PlusOutlined} from '@ant-design/icons'
 import {reqCategoryList,reqAddCategory,reqUpdateCategory} from '../../api/index'
 import { PAGE_SIZE,PRIMARY } from '../../config';
+import {connect} from 'react-redux'
+import {createSaveCategoryAction} from '../../redux/action_creators/category_action'
 
-export default function Category() {
-
+// Category组件
+function Category(props) {
   const [categoryList,setCategoryList] =useState([])
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openType,setOpenType] = useState('')
   const [loading,setLoading] = useState(true)
   const [categoryid,setCategoryid] =useState('')
-  // const [modalDefaultValue,setModalDefaultValue] = useState('')
-
   // 创建表单专用ref标识
   const [ FormRef ] = Form.useForm()
 
@@ -22,12 +22,16 @@ export default function Category() {
     setLoading(false)
     // console.log(result);
     const {data} = result
+    
+    // 将数据存入redux中
+    props.saveCategory(data)
     // 将加工好的数据存入state中
     setCategoryList(data.map((item)=>{
       return {key:item._id,categoryName:item.name}
     }))
     // console.log(data);
   }
+  // 生命周期
   useEffect(()=>{
     // 一上来，就请求商品分类列表
     getCategoryList()
@@ -174,3 +178,10 @@ export default function Category() {
   </div>
   )
 }
+
+export default  connect(
+  state => ({userInfo:state.userInfo}),
+  {
+    saveCategory:createSaveCategoryAction
+  }
+)(Category)

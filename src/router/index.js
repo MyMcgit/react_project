@@ -39,13 +39,17 @@ export  const arr= [
                         element: <Product/>,
                         children:[
                             {
-                                path:'detail/:id',
+                                path:'detail/:pid',
                                 element: <Detail/>,
                             },
                             {
                                 path:'addupdate',
                                 element: <AddUpdate/>,
-                            }
+                            },
+                            {
+                                path:'addupdate/:pid',
+                                element: <AddUpdate/>,
+                            },
                         ]
                     }
                 ]

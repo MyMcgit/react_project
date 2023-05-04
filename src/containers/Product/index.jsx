@@ -122,7 +122,7 @@ import { createSaveProductAction } from '../../redux/action_creators/product_act
             <Button onClick={()=>{showDetail(_id)}} type='link' style={{color:PRIMARY}}>
               详情
             </Button><br />
-            <Button onClick={showUpdate} type='link' style={{color:PRIMARY}}>
+            <Button onClick={()=>{showUpdate(_id)}} type='link' style={{color:PRIMARY}}>
               修改
             </Button>
           </div>
@@ -139,8 +139,8 @@ import { createSaveProductAction } from '../../redux/action_creators/product_act
     navigate('detail/'+id)
   }
   // 修改商品
-  function showUpdate(){
-    navigate('addupdate')
+  function showUpdate(id){
+    navigate('addupdate/'+id)
   }
   const outlet = useOutlet()
   if(useOutlet()){
