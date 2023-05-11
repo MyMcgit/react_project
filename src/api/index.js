@@ -30,4 +30,16 @@ export const reqProdById = (productId) => myaxios.get(`/api1/manage/product/info
 export const reqDeletePicture = (name) => myaxios.post(`/api1/manage/img/delete`,{name})
 // 添加商品
 export const reqAddProduct = (values) => myaxios.post(`/api1/manage/product/add`,{values})
+// 修改商品
+export const reqUpdateProduct = (values) => myaxios.post(`/api1/manage/product/update`,{values})
+// 请求所有角色列表
+export const reqRoleList = () => myaxios.get(BASE_URL+`/api1/manage/role/list`)
+// 请求添加角色
+export const reqAddRole= ({roleName}) => myaxios.post(`/api1/manage/role/add`,{roleName})
+// 请求给角色授权
+export const reqAuthRole= (roleObj) => myaxios.post(`/api1/manage/role/update`,{...roleObj,auth_time:new Date().getTime()})
+// 请求获取所有用户列表（同时携带着角色列表）
+export const reqUserList = () => myaxios.get(BASE_URL+`/api1/manage/user/list`)
+// 请求添加用户
+export const reqAddUser= (userObj) => myaxios.post(`/api1/manage/user/add`,{...userObj})
 

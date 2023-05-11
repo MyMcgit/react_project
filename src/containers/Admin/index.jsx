@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {useNavigate,useLocation} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Outlet} from 'react-router-dom'
 import {createDeleteUserInfoAction} from '../../redux/action_creators/login_action'
 import {connect} from 'react-redux'
@@ -11,13 +11,7 @@ import { Layout } from 'antd';
 
 function Admin(props) {
   const {Footer, Sider, Content } = Layout;
-  const path = useLocation()
   const navigate=useNavigate()
-
-  // async function demo(){
-  //   const result= await reqCategoryList()
-  //   console.log(result);
-  // }
 
   useEffect(()=>{
     // navigate('home')
@@ -28,7 +22,7 @@ function Admin(props) {
     return (
         <Layout className={css.admin}>
           <Sider className={css.sider}>
-          <Sidebar />
+            <Sidebar />
           </Sider>
           <Layout >
             <Header />

@@ -153,7 +153,7 @@ const getBase64 = (file) =>
       let arr=newFileList.map((item)=>{
           return item.name
       })
-      // props.setPreImgs(arr)
+      props.setPreImgs(arr)
       console.log(props);
       setFileList(newFileList)// 原生的，不要动
       // ui组件内部封装了本地删除，只需要手动联系服务器删除即可

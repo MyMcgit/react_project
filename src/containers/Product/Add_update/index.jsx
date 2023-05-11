@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import {useNavigate ,useParams} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {reqCategoryList,reqAddProduct,reqProdById} from '../../../api'
+import {reqCategoryList,reqAddProduct,reqProdById,reqUpdateProduct} from '../../../api'
 import { Card,Form,Input,Button,message,Select} from 'antd'
 import {ArrowLeftOutlined} from '@ant-design/icons'
 import {PRIMARY} from '../../../config'
@@ -12,11 +12,12 @@ import { BASE_URL } from '../../../config'
 
 // AddUpdate组件
 function AddUpdate(props) {
-  const [preimgs,setPreImgs] = useState([])
   const [categoryList,setCategoryList] = useState([])
   const [ FormRef ] = Form.useForm()
   const editor = React.createRef(null)
   const picwall =React.createRef(null)
+  // 照片墙信息
+  const [preimgs,setPreImgs] = useState([])
   // 富文本信息
   const [richtext,setrichtext] = useState('')
   // 获取路径中的商品id
@@ -56,6 +57,9 @@ function AddUpdate(props) {
         })
     picwall.setFileList(arr)
     editor.setHtml(detail)
+    // 上传时，若未修改照片墙或富文本，则表单不会收集到数据，需要手动输入
+    setPreImgs(imgs)
+    setrichtext(detail)
   }
   // 获取商品信息通过id（在页面被刷新，商品数据丢失时调用）
   async function getProduct(){
@@ -89,12 +93,9 @@ function AddUpdate(props) {
       // console.log('请求');
     }
     // 如果有id说明进入了修改商品页面
-    console.log(pid);
     if(pid){
-      console.log(productList.length);
       // 拿到id去和redux里的productList数据比对
         if(productList.length){
-            console.log('youlist');
             let result = productList.find((item)=>{
             return item._id === pid*1
             })
@@ -113,11 +114,18 @@ function AddUpdate(props) {
     values.detail=richtext
     // 1、获取用户的输入
     console.log('Received values of form: ',values);
-    // 2、发起网络请求axios
-    const result = await reqAddProduct(values)
+    // 2、发起网络请求axios（需要判断是新增还是修改商品）
+    let result
+    console.log(values);
+    if(pid){
+      values.id=pid
+      result = await reqUpdateProduct(values)
+    }else{
+      result = await reqAddProduct(values)
+    }
     const {code} = result
     if(code === 0){
-      message.success('新增商品成功')
+      message.success(pid?'修改商品成功':'新增商品成功')
       navigate('/admin/prod_about/product')
     }else{
       message.error('新增商品失败')
@@ -200,7 +208,7 @@ function AddUpdate(props) {
           // name="imgs"
           wrapperCol={{md:17}}
         >
-          <PictureWall ref={picwall} preimgs={preimgs} setpreimgs={setPreImgs} />
+          <PictureWall ref={picwall} preimgs={preimgs} setPreImgs={setPreImgs} />
         </Form.Item>
         <Form.Item
           label="商品详情"

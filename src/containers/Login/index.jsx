@@ -72,14 +72,6 @@ import logo from '../../static/imgs/wer.png'
                     max: 12,
                     message: '必须小于等于12位',
                   },
-                  {
-                    min: 4,
-                    message: '必须大于等于4位',
-                  },
-                  {
-                    pattern: /^\w+$/,
-                    message: '必须是英文、数字或下划线组成',
-                  },
                 ]}
               >
                 <Input prefix={<UserOutlined className="site-form-item-icon" style={{color:'rgba(0,0,0,.25)'}} />} 
